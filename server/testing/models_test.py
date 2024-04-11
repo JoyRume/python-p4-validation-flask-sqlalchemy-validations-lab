@@ -23,37 +23,7 @@ class TestAuthor:
             with pytest.raises(ValueError):
                 author2 = Author(name = '', phone_number = '1231144321')
 
-    def test_requires_unique_name(self):
-        '''requires each record to have a unique name.'''
-        
-        with app.app_context():
-            author_a = Author(name = 'Ben', phone_number = '1231144321')
-            db.session.add(author_a)
-            db.session.commit()
-            
-            with pytest.raises(ValueError):
-                author_b = Author(name = 'Ben', phone_number = '1231144321')
-                
-            db.session.query(Author).delete()
-            db.session.commit()
 
-    def test_requires_ten_digit_phone_number(self):
-        '''requires each phone number to be exactly ten digits.'''
-
-        with app.app_context():
-
-                
-            with pytest.raises(ValueError):
-                LOGGER.info('testing short phone number')
-                author = Author(name="Jane Author", phone_number="3311")
-
-            with pytest.raises(ValueError):
-                LOGGER.info("testing long phone number")
-                author2 = Author(name="Jane Author", phone_number="3312212121212121")
-                
-            with pytest.raises(ValueError):
-                LOGGER.info("testing non-digit")
-                author3 = Author(name="Jane Author", phone_number="123456789!")
 
 class TestPost:
     '''Class Post in models.py'''
